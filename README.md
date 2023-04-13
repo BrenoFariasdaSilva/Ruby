@@ -1,5 +1,5 @@
 # Ruby
-This repo is made with the objective of showing the ruby related codes i have written.
+This repo is made with the objective of showing the ruby related codes i have written. \
 Feel free to contribute and send suggestions.
 
 # Installation:
