@@ -5,3 +5,9 @@ puts ('Hello World with apostrophe cant include special characters. It will be i
 
 puts ("Printing puts (12*12): ")
 puts (12*12)
+
+# Print without new line
+print("1 + 1 = ", 1 + 1)
+
+# Print using the string interpolation
+print("1 + 1 = #{1+1}")
