@@ -34,8 +34,7 @@ rbenv --version
 ruby filename.rb
 ```
 
-## Used Text Editor:
-- Visual Studio Code
+## Used Text Editor - Visual Studio Code:
 ```bash
 sudo apt update -y
 sudo apt install software-properties-common apt-transport-https cd ~/Downloads
