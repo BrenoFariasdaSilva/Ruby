@@ -31,7 +31,7 @@ rbenv --version
 
 - Execute Ruby code
 ```bash
-ruby filename.rb
+ruby filename.rb # Example: ruby main.rb
 ```
 
 ## Text Editor - Visual Studio Code:
