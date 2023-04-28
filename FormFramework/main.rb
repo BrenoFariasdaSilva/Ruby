@@ -1,41 +1,16 @@
 require_relative "FormBuilder"
 
-# print("Enter the type of the input: ")
-# type = gets.chomp
-# print("Enter the name of the input: ")
-# name = gets.chomp
-# print("Enter the label of the input: ")
-# label = gets.chomp
-# print("Enter the options of the input: ")
-# options = gets.chomp
-
-
-
-# @form_fields = [
-	# 	{
-		# 		type: type,
-		# 		name: name,
-		# 		label: label,
-		# 		options: options
-		# 	}
-		# ]
-		
-		@form_data = {}
-		
-		# create a new instance of the FormBuilder class
-types_of_inputs = ["text", "textarea", "select", "radio", "checkbox", "button"]
-form = FormBuilder.new()
-
+types_of_inputs = ["text", "textArea", "select", "radio", "checkbox", "button"]
+form_builder = FormBuilder.new()
 html_form = ""
+html_form = form_builder.initialize_form(html_form)
 
-# call the build_form method on the form instance
+# call the build_form method on the form_builder instance
 for type in types_of_inputs
-	html_form = html_form + form.build_form(type, "name", "label", ["option1", "option2"])
+	html_form = form_builder.add_field(html_form, type, type, type, [type + "1", type + "2", type + "3"])
 end
 
-# print the HTML string to the terminal
-puts html_form
+html_form = form_builder.submit_form_button(html_form)
 
-# now write this HTML string to a file named form.html
+# now write this HTML string to a file named form_builder.html
 File.write("form.html", html_form)
-
