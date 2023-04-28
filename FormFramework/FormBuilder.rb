@@ -67,13 +67,14 @@ class FormBuilder
             form_html += "<select name=\"#{field[:name]}\" id=\"#{field[:name]}\"#{required_field(field[:options])}>"
             field[:options].each do |option|
                form_html += "<option value=\"#{option[:value]}\">#{option[:label]}</option>"
-            # end
+            end
             form_html += "</select>"
          end
       end
       form_html += "<input type=\"submit\" value=\"Submit\">"
       form_html += "</form>"
       return form_html
+      end
    end
 
    def process_form(params)
@@ -93,5 +94,14 @@ class FormBuilder
       values = @form_data.values.map { |value| "'#{value}'" }.join(",")
       sql = "INSERT INTO form_data (#{fields}) VALUES (#{values})"
       @db.query(sql)
+   end
+
+   def required_field(options)
+      if options.key?(:required)
+         if options[:required]
+            return " required"
+         end
+      end
+      return ""
    end
 end
