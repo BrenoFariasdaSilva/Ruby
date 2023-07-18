@@ -1,4 +1,4 @@
-# Ruby <img src="https://github.com/devicons/devicon/blob/master/icons/ruby/ruby-original.svg"  width="3%" height="3%">
+# [Ruby.](https://github.com/BrenoFariasdaSilva/Ruby) <img src="https://github.com/devicons/devicon/blob/master/icons/ruby/ruby-original.svg"  width="3%" height="3%">
 This repo is made with the objective of showing the ruby related codes i have written. \
 Feel free to contribute and send suggestions.
 
