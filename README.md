@@ -25,6 +25,8 @@ Feel free to contribute and send suggestions.
 
 </div>
 
+## Table of Contents
+
 # Installation:
 
 - Ruby Language:
