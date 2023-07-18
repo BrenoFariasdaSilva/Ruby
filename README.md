@@ -26,6 +26,13 @@ Feel free to contribute and send suggestions.
 </div>
 
 ## Table of Contents
+- [Ruby. ](#ruby-)
+  - [Table of Contents](#table-of-contents)
+- [Installation:](#installation)
+  - [Text Editor - Visual Studio Code:](#text-editor---visual-studio-code)
+  - [Contributing](#contributing)
+  - [License](#license)
+
 
 # Installation:
 
