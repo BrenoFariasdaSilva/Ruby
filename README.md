@@ -19,6 +19,12 @@ Feel free to contribute and send suggestions.
   <img src="https://wakatime.com/badge/github/BrenoFariasdaSilva/Ruby.svg" alt="wakatime" />
 </p>
 
+<div align="center">
+  
+![RepoBeats Statistics](https://repobeats.axiom.co/api/embed/a98bbb82b999fd5f43fdf85f66933058c80bdb61.svg "Repobeats analytics image")
+
+</div>
+
 # Installation:
 
 - Ruby Language:
