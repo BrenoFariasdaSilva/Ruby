@@ -15,9 +15,14 @@ Feel free to contribute and send suggestions.
 
 </div>
 
-<p align="center">
-  <img src="https://wakatime.com/badge/github/BrenoFariasdaSilva/Ruby.svg" alt="wakatime" />
-</p>
+<div align="center">
+
+![GitHub Code Size in Bytes](https://img.shields.io/github/languages/code-size/BrenoFariasdaSilva/Ruby)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/BrenoFariasdaSilva/Ruby)
+![GitHub](https://img.shields.io/github/license/BrenoFariasdaSilva/Ruby)
+![wakatime](https://wakatime.com/badge/github/BrenoFariasdaSilva/Ruby.svg)
+
+</div>
 
 <div align="center">
   
