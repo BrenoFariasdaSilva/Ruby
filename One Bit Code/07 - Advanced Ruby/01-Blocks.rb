@@ -1,7 +1,7 @@
 # Blocks are anonymous functions that can be passed to methods as arguments
 # Blocks are defined with the do/end keywords or with curly braces
 
-5.times { puts 'Executing the block' }
+5.times { puts "Executing the block" }
 
 # Or with array
 
@@ -17,7 +17,7 @@ foo.each do |key, value|
 	puts "Key = #{key}"
 	puts "Value = #{value}"
 	puts "Key * Value = #{key * value}"
-	puts '-----------------'
+	puts "-----------------"
 end
 
 # Or with a method
@@ -27,11 +27,11 @@ def random
 		# Call the block
 		yield
 	else
-		puts 'No block given'
+		puts "No block given"
 	end
 end
 
-random { puts 'Executed the block' }
+random { puts "Executed the block" }
 random
 
 # Another example using &block
@@ -42,7 +42,7 @@ def newRandom(name, &block)
 	block.call
 end
 
-newRandom('Breno') { puts 'Executed the block' }
+newRandom("Breno") { puts "Executed the block" }
 
 # 
 
@@ -59,5 +59,5 @@ numbers = { 2 => 2, 3 => 3, 4 => 4 }
 anotherRandom(numbers) do |key, value|
 	puts "Key + Value = #{key + value}"
 	puts "Key * Value = #{key * value}"
-	puts '-----------------'
+	puts "-----------------"
 end
