@@ -45,7 +45,7 @@ def get_magnet_links(url)
    begin
       driver.get(url) # Load the URL
 
-      sleep(5) # Wait for a few seconds to allow dynamic content to load
+      sleep(20) # Wait for a few seconds to allow dynamic content to load
 
       # Get the page source after it has loaded
       html_content = driver.page_source
