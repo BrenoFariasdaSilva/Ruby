@@ -80,24 +80,24 @@ results = []
 
 # Iterate through each URL
 urls.each_with_index do |url, index|
-  name = get_name_from_url(url)
-  magnet_links = get_magnet_links(url)
-  results << { "Name" => name, "URL" => url, "Magnet URL" => magnet_links.join(", ") }
+   name = get_name_from_url(url)
+   magnet_links = get_magnet_links(url)
+   results << { "Name" => name, "URL" => url, "Magnet URL" => magnet_links.join(", ") }
 
-  # Update progress bar and counter
-  progress_bar.increment
-  puts "Processing URL #{index + 1}/#{urls.size}" if index < urls.size - 1
+   # Update progress bar and counter with the URL
+   progress_bar.increment
+   puts "Processing URL #{index + 1}/#{urls.size} - #{url}" if index < urls.size - 1
 end
 
 # Save results to a CSV file
-CSV.open("magnet_links.csv", "w") do |csv|
-  # Write header
-  csv << ["Name", "Magnet URL", "URL"]
+CSV.open("Magnet_URLs.csv", "w") do |csv|
+   # Write header
+   csv << ["Name", "Magnet URL", "Source URL"]
 
-  # Write data
-  results.each do |result|
-    csv << [result["Name"], result["Magnet URL"], result["URL"]]
-  end
+   # Write data
+   results.each do |result|
+      csv << [result["Name"], result["Magnet URL"], result["URL"]]
+   end
 end
 
-puts "Results saved to magnet_links.csv"
+puts "Results saved to Magnet_URLs.csv"
