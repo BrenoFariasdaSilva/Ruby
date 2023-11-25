@@ -59,7 +59,7 @@ def get_magnet_links(url)
       return magnet_links # Return the magnet links
 
    rescue StandardError => e # Catch any errors
-      puts "An error occurred: #{e.message}" 
+      puts "An error occurred: #{e.message}"
       return []
 
    ensure # Ensure that the browser is closed
@@ -101,3 +101,17 @@ CSV.open("Magnet_URLs.csv", "w") do |csv|
 end
 
 puts "Results saved to Magnet_URLs.csv"
+
+# Play sound at the end
+sound_file_path = "./.assets/Sounds/NotificationSound.wav"
+if File.exist?(sound_file_path)
+   if RbConfig::CONFIG["host_os"] =~ /linux/
+      # Linux command to play sound
+      system("aplay #{sound_file_path}")
+   elsif RbConfig::CONFIG["host_os"] =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/
+      # Windows command to play sound
+      system("start #{sound_file_path}")
+   end
+   else
+   puts "Sound file not found: #{sound_file_path}"
+end
