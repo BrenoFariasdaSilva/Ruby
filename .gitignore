@@ -56,3 +56,9 @@ build-iPhoneSimulator/
 # .rubocop-https?--*
 
 .DS_Store
+
+# Input files
+*.txt
+
+# Output files
+*.csv
