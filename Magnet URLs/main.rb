@@ -42,7 +42,7 @@ def get_magnet_links(url)
    driver = Selenium::WebDriver.for :firefox, options: options
 
    # Set a longer timeout
-   driver.manage.timeouts.page_load = 180
+   driver.manage.timeouts.page_load = 300
 
    # Get the page source
    begin
