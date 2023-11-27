@@ -41,6 +41,9 @@ def get_magnet_links(url)
    Selenium::WebDriver::Firefox::Service.driver_path = geckodriver_path
    driver = Selenium::WebDriver.for :firefox, options: options
 
+   # Set a longer timeout
+   driver.manage.timeouts.page_load = 180
+
    # Get the page source
    begin
       driver.get(url) # Load the URL
