@@ -30,43 +30,52 @@ def get_name_from_url(url)
    url.split("/").last
 end
 
-# This method returns an array of magnet links from the URL
-def get_magnet_links(url)
-   # Set up Selenium with a headless browser and dynamically get the path to the Firefox executable
+# This method returns an array of hashes containing magnet links and their corresponding size
+def get_magnet_links_with_size(url)
    options = Selenium::WebDriver::Firefox::Options.new(args: ["--headless"])
    geckodriver_path = get_geckodriver_path
-   return if geckodriver_path.nil?
+   return [] if geckodriver_path.nil?
 
-   # Set the path to the geckodriver executable
    Selenium::WebDriver::Firefox::Service.driver_path = geckodriver_path
    driver = Selenium::WebDriver.for :firefox, options: options
 
-   # Set a longer timeout
    driver.manage.timeouts.page_load = 300
 
-   # Get the page source
    begin
-      driver.get(url) # Load the URL
+      driver.get(url)
+      sleep(20)
 
-      sleep(20) # Wait for a few seconds to allow dynamic content to load
-
-      # Get the page source after it has loaded
       html_content = driver.page_source
-
-      # Parse the HTML content with Nokogiri
       doc = Nokogiri::HTML(html_content)
 
-      # Extract magnet links using Nokogiri selectors
-      magnet_links = doc.css("a[href^='magnet:?']").map { |link| link["href"] }
+      magnet_links_with_size = []
 
-      return magnet_links # Return the magnet links
+      doc.css("a[href^='magnet:?']").each do |link|
+         magnet_link = link["href"]
 
-   rescue StandardError => e # Catch any errors
+         # Find the preceding <td> with the text "Size:"
+         size_td = link.at_xpath("preceding::td[contains(text(), 'Size:')]")
+
+         # If a <td> with "Size:" is found, get the size from the following <td>
+         if size_td
+            size_value_td = size_td.at_xpath("following-sibling::td")
+            size_value = size_value_td&.text
+
+            # Add the magnet link and size to the array
+            magnet_links_with_size << { "magnet_link" => magnet_link, "size" => size_value }
+         # Else, add the magnet link with nil size to the array
+         else
+            magnet_links_with_size << { "magnet_link" => magnet_link, "size" => 0.0 }
+         end
+      end
+
+      return magnet_links_with_size
+
+   rescue StandardError => e
       puts "An error occurred: #{e.message}"
       return []
 
-   ensure # Ensure that the browser is closed
-      # Close the browser
+   ensure
       driver.quit
    end
 end
@@ -84,36 +93,25 @@ csv_exists_or_empty = !File.exist?("Magnet_URLs.csv") || File.zero?("Magnet_URLs
 # Open the CSV file in append mode
 CSV.open("Magnet_URLs.csv", "a") do |csv|
    # Write header only if the file is new or empty
-   csv << ["Name", "Magnet URL", "URL"] if csv_exists_or_empty
+   csv << ["Name", "Magnet URL", "Size", "Source URL"] if csv_exists_or_empty
 end
 
 # Iterate through each URL
 urls.each_with_index do |url, index|
    name = get_name_from_url(url)
-   magnet_links = get_magnet_links(url)
+   magnet_links_with_size = get_magnet_links_with_size(url)
 
    # Open the CSV file in append mode
    CSV.open("Magnet_URLs.csv", "a") do |csv|
-      # Write data for each magnet link immediately
-      magnet_links.each do |magnet_link|
-         csv << [name, magnet_link, url]
+      # Write data for each magnet link with size immediately
+      magnet_links_with_size.each do |magnet_data|
+         csv << [name, magnet_data["magnet_link"], magnet_data["size"], url]
       end
    end
 
    # Update progress bar and counter with the URL
    progress_bar.increment
    puts "Processing URL #{index + 1}/#{urls.size} - #{url}" if index < urls.size - 1
-end
-
-# Save results to a CSV file
-CSV.open("Magnet_URLs.csv", "w") do |csv|
-   # Write header
-   csv << ["Name", "Magnet URL", "Source URL"]
-
-   # Write data
-   results.each do |result|
-      csv << [result["Name"], result["Magnet URL"], result["URL"]]
-   end
 end
 
 puts "Results saved to Magnet_URLs.csv"
