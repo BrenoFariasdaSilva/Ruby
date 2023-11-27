@@ -75,8 +75,14 @@ urls = File.readlines(url_file_path, chomp: true)
 # Initialize progress bar
 progress_bar = ProgressBar.create(total: urls.size, format: "%t |%B| %p%% %e")
 
-# Store results in an array
-results = []
+# Check if the CSV file exists or is empty
+csv_exists_or_empty = !File.exist?("Magnet_URLs.csv") || File.zero?("Magnet_URLs.csv")
+
+# Open the CSV file in append mode
+CSV.open("Magnet_URLs.csv", "a") do |csv|
+   # Write header only if the file is new or empty
+   csv << ["Name", "Magnet URL", "URL"] if csv_exists_or_empty
+end
 
 # Iterate through each URL
 urls.each_with_index do |url, index|
