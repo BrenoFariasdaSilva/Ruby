@@ -88,7 +88,14 @@ end
 urls.each_with_index do |url, index|
    name = get_name_from_url(url)
    magnet_links = get_magnet_links(url)
-   results << { "Name" => name, "URL" => url, "Magnet URL" => magnet_links.join(", ") }
+
+   # Open the CSV file in append mode
+   CSV.open("Magnet_URLs.csv", "a") do |csv|
+      # Write data for each magnet link immediately
+      magnet_links.each do |magnet_link|
+         csv << [name, magnet_link, url]
+      end
+   end
 
    # Update progress bar and counter with the URL
    progress_bar.increment
