@@ -28,6 +28,8 @@ end
 def get_name_from_url(url)
    # Extract the string after the last slash (not included) in the URL
    url.split("/").last
+   # replace all non-alphanumeric characters with a space
+   .gsub(/[^0-9A-Za-z]/, " ")
 end
 
 # This method returns an array of hashes containing magnet links, their corresponding size, and cumulative total size
