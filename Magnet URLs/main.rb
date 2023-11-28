@@ -35,12 +35,12 @@ def get_magnet_links_with_size(url)
    options = Selenium::WebDriver::Firefox::Options.new(args: ["--headless"])
    geckodriver_path = get_geckodriver_path
    return [] if geckodriver_path.nil?
-
+ 
    Selenium::WebDriver::Firefox::Service.driver_path = geckodriver_path
    driver = Selenium::WebDriver.for :firefox, options: options
-
+ 
    driver.manage.timeouts.page_load = 300
-
+ 
    begin
       driver.get(url)
       sleep(20)
@@ -53,32 +53,28 @@ def get_magnet_links_with_size(url)
       doc.css("a[href^='magnet:?']").each do |link|
          magnet_link = link["href"]
 
-         # Find the preceding <td> with the text "Size:"
-         size_td = link.at_xpath("preceding::td[contains(text(), 'Size:')]")
+         # Use XPath to get the size directly
+         size_value = doc.at_xpath("/html/body/center/div[1]/div/center/table/tbody/tr[6]/td[2]")&.text
 
-         # If a <td> with "Size:" is found, get the size from the following <td>
-         if size_td
-            size_value_td = size_td.at_xpath("following-sibling::td")
-            size_value = size_value_td&.text
-
-            # Add the magnet link and size to the array
+         # If size is found, replace the weird space and add the magnet link and size to the array
+         if size_value
+            # Replace space with space
+            size_value = size_value.gsub("\u00A0", " ")
             magnet_links_with_size << { "magnet_link" => magnet_link, "size" => size_value }
-         # Else, add the magnet link with nil size to the array
          else
+         # Else, add the magnet link with nil size to the array
             magnet_links_with_size << { "magnet_link" => magnet_link, "size" => 0.0 }
          end
       end
 
       return magnet_links_with_size
-
    rescue StandardError => e
       puts "An error occurred: #{e.message}"
       return []
-
    ensure
       driver.quit
    end
-end
+ end
 
 # Read URLs from the text file
 url_file_path = "URLs.txt"
