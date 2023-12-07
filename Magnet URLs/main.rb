@@ -64,7 +64,7 @@ def get_magnet_links_with_size(url, cumulative_total_size)
          size_value = size_value.gsub("\u00A0", " ")
 
          # Extract numerical value and unit (GB or MB)
-         size, unit = size_value.scan(/(\d+(\.\d+)?)\s*([GMK]B)?/).flatten.compact
+         size, unit = size_value.split(' ')
 
          # Convert size to GB if in MB
          size = size.to_f / 1000 if unit == 'MB'
