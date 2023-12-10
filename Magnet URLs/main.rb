@@ -24,6 +24,17 @@ def get_geckodriver_path
    end
 end
 
+# This method returns true if the URLs are sorted alphabetically, otherwise false
+def sorted_alphabetically?(urls)
+   names = urls.map { |url| get_name_from_url(url) }
+   names == names.sort
+end
+
+ # This method sorts the URLs alphabetically
+def sort_urls_alphabetically(urls)
+   urls.sort_by { |url| get_name_from_url(url) }
+end
+
 # This method returns the string after the last slash (not included) in the URL
 def get_name_from_url(url)
    # Extract the string after the last slash (not included) in the URL
@@ -90,6 +101,13 @@ end
 # Read URLs from the text file
 url_file_path = "URLs.txt"
 urls = File.readlines(url_file_path, chomp: true)
+
+unless sorted_alphabetically?(urls)
+   puts "Sorting URLs alphabetically..."
+   urls = sort_urls_alphabetically(urls)
+   File.write(url_file_path, urls.join("\n"))
+   puts "URLs sorted alphabetically"
+end
 
 # Initialize progress bar
 progress_bar = ProgressBar.create(total: urls.size, format: "%t |%B| %p%% %e")
