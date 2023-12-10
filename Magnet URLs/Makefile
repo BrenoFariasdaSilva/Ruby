@@ -9,8 +9,8 @@ sort:
 
 sortAndSum:
 	clear; ruby ../Text\ File\ Content\ Sorter/main.rb
-	ruby ../CSV\ File\ Content\ Sorter/main.rb
 	time ruby ./main.rb
+	ruby ../CSV\ File\ Content\ Sorter/main.rb
 	ruby ../CSV\ Sum\ Sizes/main.rb
 
 depencencies:
