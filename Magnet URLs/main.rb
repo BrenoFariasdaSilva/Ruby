@@ -118,7 +118,7 @@ csv_exists_or_empty = !File.exist?("Magnet_URLs.csv") || File.zero?("Magnet_URLs
 # Open the CSV file in append mode
 CSV.open("Magnet_URLs.csv", "a") do |csv|
    # Write header only if the file is new or empty
-   csv << ["Name", "Size", "Total Size", "Magnet URL", "Source URL"] if csv_exists_or_empty
+   csv << ["Name", "Size GB", "Total Size GB", "Magnet URL", "Source URL"] if csv_exists_or_empty
 end
 
 # Initialize cumulative total size
