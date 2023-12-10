@@ -25,14 +25,8 @@ end
 csv_file_path = "../Magnet URLs/Magnet_URLs.csv"
 csv_data = CSV.read(csv_file_path, headers: true)
 
-# Convert the CSV::Table to an array of hashes and sort
-csv_array = csv_data.map(&:to_h).sort_by { |row| row["Name"] }
-
-# Get headers from the first row of the array
-headers = csv_array.first.keys
-
-# Convert the sorted array back to CSV::Table
-csv_data = CSV::Table.new(csv_array, headers: headers)
+# Get headers from the CSV file
+headers = csv_data.headers
 
 # Initialize cumulative total size
 cumulative_total_size = 0.0
