@@ -32,8 +32,8 @@ def get_name_from_url(url)
    .gsub(/[^0-9A-Za-z]/, " ")
 end
 
-# This method returns an array of hashes containing magnet links, their corresponding size, and cumulative total size
-def get_magnet_links_with_size(url, cumulative_total_size)
+# This method returns an array of hashes containing magnet links, files quantity, their size, and cumulative total size.
+def get_magnet_links_with_size_and_files(url, cumulative_total_size)
    options = Selenium::WebDriver::Firefox::Options.new(args: ["--headless"])
    geckodriver_path = get_geckodriver_path
    return [] if geckodriver_path.nil?
@@ -50,13 +50,16 @@ def get_magnet_links_with_size(url, cumulative_total_size)
       html_content = driver.page_source
       doc = Nokogiri::HTML(html_content)
 
-      magnet_links_with_size = []
+      magnet_links_with_size_and_files = []
 
       doc.css("a[href^='magnet:?']").each do |link|
       magnet_link = link["href"]
 
       # Use XPath to get the size directly
       size_value = doc.at_xpath("/html/body/center/div[1]/div/center/table/tbody/tr[6]/td[2]")&.text
+
+      # Use XPath to get the files quantity directly
+      files_quantity = doc.at_xpath("/html/body/center/div[1]/div/center/table/tbody/tr[8]/td[2]")&.text
 
       # If size is found, replace the weird space and add the magnet link and size to the array
       if size_value
@@ -71,14 +74,24 @@ def get_magnet_links_with_size(url, cumulative_total_size)
 
          cumulative_total_size += size.to_f
          total_size = "#{cumulative_total_size} GB"
-         magnet_links_with_size << { "size" => "#{sprintf('%.2f', size)} GB", "total_size" => "#{sprintf('%.2f', cumulative_total_size)} GB", "magnet_link" => magnet_link }
+         magnet_links_with_size_and_files << {
+            "files_quantity" => files_quantity,
+            "size" => "#{sprintf('%.2f', size)} GB",
+            "total_size" => "#{sprintf('%.2f', cumulative_total_size)} GB",
+            "magnet_link" => magnet_link
+         }
       else
          # Else, add the magnet link with nil size to the array
-         magnet_links_with_size << { "size" => "0.0 GB", "total_size" => "0.0 GB", "magnet_link" => magnet_link, }
+         magnet_links_with_size_and_files << {
+            "files_quantity" => files_quantity,
+            "size" => "0.0 GB",
+            "total_size" => "0.0 GB",
+            "magnet_link" => magnet_link
+         }
       end
    end
 
-      return magnet_links_with_size, cumulative_total_size
+      return magnet_links_with_size_and_files, cumulative_total_size
    rescue StandardError => e
       puts "An error occurred: #{e.message}"
       return [], cumulative_total_size
@@ -100,7 +113,7 @@ csv_exists_or_empty = !File.exist?("Magnet_URLs.csv") || File.zero?("Magnet_URLs
 # Open the CSV file in append mode
 CSV.open("Magnet_URLs.csv", "a") do |csv|
    # Write header only if the file is new or empty
-   csv << ["Name", "Size GB", "Total Size GB", "Magnet URL", "Source URL"] if csv_exists_or_empty
+   csv << ["Name", "Files", "Size GB", "Total Size GB", "Magnet URL", "Source URL"] if csv_exists_or_empty
 end
 
 # Initialize cumulative total size
@@ -109,13 +122,13 @@ cumulative_total_size = 0.0
 # Iterate through each URL
 urls.each_with_index do |url, index|
    name = get_name_from_url(url)
-   magnet_links_with_size, cumulative_total_size = get_magnet_links_with_size(url, cumulative_total_size)
+   magnet_links_with_size_and_files, cumulative_total_size = get_magnet_links_with_size_and_files(url, cumulative_total_size)
 
    # Open the CSV file in append mode
    CSV.open("Magnet_URLs.csv", "a") do |csv|
-      # Write data for each magnet link with size immediately
-      magnet_links_with_size.each do |magnet_data|
-      csv << [name, magnet_data["size"], magnet_data["total_size"], magnet_data["magnet_link"], url]
+      # Write data for each magnet link with size and files quantity immediately
+      magnet_links_with_size_and_files.each do |magnet_data|
+      csv << [name, magnet_data["files_quantity"], magnet_data["size"], magnet_data["total_size"], magnet_data["magnet_link"], url]
       end
    end
 
