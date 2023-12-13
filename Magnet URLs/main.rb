@@ -78,6 +78,7 @@ def get_magnet_links_with_size_and_files(url, cumulative_total_size)
             "files_quantity" => files_quantity,
             "size" => "#{sprintf('%.2f', size)} GB",
             "total_size" => "#{sprintf('%.2f', cumulative_total_size)} GB",
+            "status" => "Not Downloaded",
             "magnet_link" => magnet_link
          }
       else
@@ -86,12 +87,13 @@ def get_magnet_links_with_size_and_files(url, cumulative_total_size)
             "files_quantity" => files_quantity,
             "size" => "0.0 GB",
             "total_size" => "0.0 GB",
+            "status" => "Not Downloaded",
             "magnet_link" => magnet_link
          }
       end
    end
 
-      return magnet_links_with_size_and_files, cumulative_total_size
+   return magnet_links_with_size_and_files, cumulative_total_size
    rescue StandardError => e
       puts "An error occurred: #{e.message}"
       return [], cumulative_total_size
@@ -113,7 +115,7 @@ csv_exists_or_empty = !File.exist?("Magnet_URLs.csv") || File.zero?("Magnet_URLs
 # Open the CSV file in append mode
 CSV.open("Magnet_URLs.csv", "a") do |csv|
    # Write header only if the file is new or empty
-   csv << ["Name", "Files", "Size GB", "Total Size GB", "Magnet URL", "Source URL"] if csv_exists_or_empty
+   csv << ["Name", "Files", "Size GB", "Total Size GB", "Status", "Magnet URL", "Source URL"] if csv_exists_or_empty
 end
 
 # Initialize cumulative total size
@@ -128,7 +130,7 @@ urls.each_with_index do |url, index|
    CSV.open("Magnet_URLs.csv", "a") do |csv|
       # Write data for each magnet link with size and files quantity immediately
       magnet_links_with_size_and_files.each do |magnet_data|
-      csv << [name, magnet_data["files_quantity"], magnet_data["size"], magnet_data["total_size"], magnet_data["magnet_link"], url]
+      csv << [name, magnet_data["files_quantity"], magnet_data["size"], magnet_data["total_size"], magnet_data["status"], magnet_data["magnet_link"], url]
       end
    end
 
