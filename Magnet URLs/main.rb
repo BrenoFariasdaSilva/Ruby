@@ -78,7 +78,7 @@ def get_magnet_links_with_size_and_files(url, cumulative_total_size)
             "files_quantity" => files_quantity,
             "size" => "#{sprintf('%.2f', size)} GB",
             "total_size" => "#{sprintf('%.2f', cumulative_total_size)} GB",
-            "status" => "Not Downloaded",
+            "status" => "Peding",
             "magnet_link" => magnet_link
          }
       else
@@ -87,7 +87,7 @@ def get_magnet_links_with_size_and_files(url, cumulative_total_size)
             "files_quantity" => files_quantity,
             "size" => "0.0 GB",
             "total_size" => "0.0 GB",
-            "status" => "Not Downloaded",
+            "status" => "Peding",
             "magnet_link" => magnet_link
          }
       end
