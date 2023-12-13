@@ -129,6 +129,7 @@ cumulative_total_size = 0.0
 urls.each_with_index do |url, index|
    name, status = get_name_and_status_from_url(url)
    name = name.gsub("-", " ") # Replace "-"" with space
+   name = name.gsub("_", " ") # Replace "_" with space
    informations, cumulative_total_size = get_magnet_links_and_additional_infos(url, cumulative_total_size)
    clean_url = url.split(" - ").first
 
