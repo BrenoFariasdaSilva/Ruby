@@ -129,18 +129,19 @@ cumulative_total_size = 0.0
 urls.each_with_index do |url, index|
    name, status = get_name_and_status_from_url(url)
    informations, cumulative_total_size = get_magnet_links_and_additional_infos(url, cumulative_total_size)
+   clean_url = url.split(" - ").first
 
    # Open the CSV file in append mode
    CSV.open("Magnet_URLs.csv", "a") do |csv|
       # Write data for each magnet link with size and files quantity immediately
       informations.each do |url_data|
-      csv << [name, url_data["files_quantity"], url_data["size"], url_data["total_size"], status, url_data["magnet_link"], url]
+      csv << [name, url_data["files_quantity"], url_data["size"], url_data["total_size"], status, url_data["magnet_link"], clean_url]
       end
    end
 
    # Update progress bar and counter with the URL
    progress_bar.increment
-   puts "#{index + 1}/#{urls.size} - Processing #{name} (#{status}): #{url.split(" - ").first}" if index < urls.size - 1
+   puts "#{index + 1}/#{urls.size} - Processing #{name} (#{status}): #{clean_url}" if index < urls.size - 1
 end
 
 puts "Results saved to Magnet_URLs.csv"
