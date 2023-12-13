@@ -38,6 +38,14 @@ def get_name_and_status_from_url(url)
    return name, status # return the name and status
 end
 
+# This function process the name, by replacing "-" and "_" with space, and capitalize each word
+def process_name(name)
+   name = name.gsub("-", " ") # Replace "-"" with space
+   name = name.gsub("_", " ") # Replace "_" with space
+   name = name.split.map(&:capitalize).join(" ") # Capitalize each word
+   return name # return the processed name
+end
+
 # This method returns an array of hashes containing magnet links, files quantity, their size, and cumulative total size.
 def get_magnet_links_and_additional_infos(url, cumulative_total_size)
    options = Selenium::WebDriver::Firefox::Options.new(args: ["--headless"])
@@ -128,8 +136,8 @@ cumulative_total_size = 0.0
 # Iterate through each URL
 urls.each_with_index do |url, index|
    name, status = get_name_and_status_from_url(url)
-   name = name.gsub("-", " ") # Replace "-"" with space
-   name = name.gsub("_", " ") # Replace "_" with space
+   name = process_name(name) # Process the name
+
    informations, cumulative_total_size = get_magnet_links_and_additional_infos(url, cumulative_total_size)
    clean_url = url.split(" - ").first
 
