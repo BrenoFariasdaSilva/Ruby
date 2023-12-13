@@ -24,16 +24,22 @@ def get_geckodriver_path
    end
 end
 
-# This method returns the string after the last slash (not included) in the URL
-def get_name_from_url(url)
-   # Extract the string after the last slash (not included) in the URL
-   url.split("/").last
-   # replace all non-alphanumeric characters with a space
-   .gsub(/[^0-9A-Za-z]/, " ")
+# This function get the String after the last slash in the URL and get the name and status from it
+def get_name_and_status_from_url(url)
+   last_string = url.split("/").last # Get the last string from the URL
+   if last_string.include?(" - ")
+      name, status = last_string.split(" - ")
+      name = name.gsub(/[^0-9A-Za-z]/, " ")
+   else
+      name = last_string
+      status = "Pending"
+   end
+
+   return name, status # return the name and status
 end
 
 # This method returns an array of hashes containing magnet links, files quantity, their size, and cumulative total size.
-def get_magnet_links_with_size_and_files(url, cumulative_total_size)
+def get_magnet_links_and_additional_infos(url, cumulative_total_size)
    options = Selenium::WebDriver::Firefox::Options.new(args: ["--headless"])
    geckodriver_path = get_geckodriver_path
    return [] if geckodriver_path.nil?
@@ -78,7 +84,6 @@ def get_magnet_links_with_size_and_files(url, cumulative_total_size)
             "files_quantity" => files_quantity,
             "size" => "#{sprintf('%.2f', size)} GB",
             "total_size" => "#{sprintf('%.2f', cumulative_total_size)} GB",
-            "status" => "Peding",
             "magnet_link" => magnet_link
          }
       else
@@ -87,7 +92,6 @@ def get_magnet_links_with_size_and_files(url, cumulative_total_size)
             "files_quantity" => files_quantity,
             "size" => "0.0 GB",
             "total_size" => "0.0 GB",
-            "status" => "Peding",
             "magnet_link" => magnet_link
          }
       end
@@ -123,20 +127,20 @@ cumulative_total_size = 0.0
 
 # Iterate through each URL
 urls.each_with_index do |url, index|
-   name = get_name_from_url(url)
-   magnet_links_with_size_and_files, cumulative_total_size = get_magnet_links_with_size_and_files(url, cumulative_total_size)
+   name, status = get_name_and_status_from_url(url)
+   informations, cumulative_total_size = get_magnet_links_and_additional_infos(url, cumulative_total_size)
 
    # Open the CSV file in append mode
    CSV.open("Magnet_URLs.csv", "a") do |csv|
       # Write data for each magnet link with size and files quantity immediately
-      magnet_links_with_size_and_files.each do |magnet_data|
-      csv << [name, magnet_data["files_quantity"], magnet_data["size"], magnet_data["total_size"], magnet_data["status"], magnet_data["magnet_link"], url]
+      informations.each do |url_data|
+      csv << [name, url_data["files_quantity"], url_data["size"], url_data["total_size"], status, url_data["magnet_link"], url]
       end
    end
 
    # Update progress bar and counter with the URL
    progress_bar.increment
-   puts "Processing URL #{index + 1}/#{urls.size} - #{url}" if index < urls.size - 1
+   puts "#{index + 1}/#{urls.size} - Processing #{name} (#{status}): #{url.split(" - ").first}" if index < urls.size - 1
 end
 
 puts "Results saved to Magnet_URLs.csv"
