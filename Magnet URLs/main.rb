@@ -46,6 +46,7 @@ def process_name(name)
       # loop through each word and capitalize it
       for i in 0..name.split.size - 1
          name[i][0] = name[i][0].upcase
+      end
    else
       if name[0] == name[0].downcase
          # capitalize the first letter and lowercase the rest
