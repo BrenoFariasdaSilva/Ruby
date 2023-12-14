@@ -1,4 +1,4 @@
-require "csv"
+require "csv" # Import the CSV gem
 require "rbconfig" # Import the RbConfig gem
 
 # This method returns the path to the geckodriver executable

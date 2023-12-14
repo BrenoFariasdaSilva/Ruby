@@ -53,11 +53,13 @@ end
  
 # Main function
 def main
+   sorting_column = "Name" # Specify the column to sort the CSV file content by
+
    # Specify the path to the CSV file
    csv_file_path = "../Magnet URLs/Magnet_URLs.csv"
 
    # Sort the CSV file alphabetically by the specified column
-   sort_csv_alphabetically(csv_file_path, SORTING_COLUMN)
+   sort_csv_alphabetically(csv_file_path, sorting_column)
 
    # Sound file path
    sound_file_path = "../.assets/Sounds/NotificationSound.wav"
