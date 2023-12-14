@@ -42,16 +42,9 @@ end
 def process_name(name)
    name = name.gsub("-", " ") # Replace "-"" with space
    name = name.gsub("_", " ") # Replace "_" with space
-   if name.split.size > 1
-      # loop through each word and capitalize it
-      for i in 0..name.split.size - 1
-         name[i][0] = name[i][0].upcase
-      end
-   else
-      if name[0] == name[0].downcase
-         # capitalize the first letter and lowercase the rest
-         name = name.split.map(&:capitalize).join(" ")
-      end
+   
+   for i in 0..name.split.size - 1 # Iterate through each word
+      name[i][0] = name[i][0].upcase # Capitalize the first letter of each word
    end
 
    return name # return the processed name
