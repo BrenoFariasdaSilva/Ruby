@@ -21,49 +21,57 @@ def get_geckodriver_path
    end
 end
 
-# Read CSV file
-csv_file_path = "../Magnet URLs/Magnet_URLs.csv"
-csv_data = CSV.read(csv_file_path, headers: true)
+# This method updates the "Total Size GB" column in the CSV file
+def update_total_size(csv_file_path)
+   csv_data = CSV.read(csv_file_path, headers: true)
+   headers = csv_data.headers
+   cumulative_total_size = 0.0
 
-# Get headers from the CSV file
-headers = csv_data.headers
+   csv_data.each do |row|
+      size_gb = row["Size GB"].to_f
+      row["Total Size GB"] = (cumulative_total_size += size_gb).round(2).to_s
 
-# Initialize cumulative total size
-cumulative_total_size = 0.0
+      if row["Total Size GB"] != row["Total Size GB"].to_f.round(2).to_s
+         puts "Updating Total Size for '#{row["Name"]}'"
+      end
+   end
 
-# Iterate through each row
-csv_data.each do |row|
-   # Extract size from the "Size GB" column
-   size_gb = row["Size GB"].to_f
+   CSV.open(csv_file_path, "w", headers: headers, write_headers: true) do |csv|
+      csv_data.each { |row| csv << row }
+   end
 
-   # Update "Total Size GB" column based on the cumulative total size
-   row["Total Size GB"] = (cumulative_total_size += size_gb).round(2).to_s
-
-   # Check if the calculated "Total Size GB" matches the existing value
-   if row["Total Size GB"] != row["Total Size GB"].to_f.round(2).to_s
-      puts "Updating Total Size for '#{row["Name"]}'"
+   puts "CSV file updated successfully."
+end
+ 
+# This method plays a sound file based on the operating system
+def play_sound(sound_file_path)
+   if File.exist?(sound_file_path)
+      if RbConfig::CONFIG["host_os"] =~ /linux/
+         # Linux command to play sound
+         system("aplay #{sound_file_path}")
+      elsif RbConfig::CONFIG["host_os"] =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/
+         # Windows command to play sound
+         system("start #{sound_file_path}")
+      end
+   else
+      puts "Sound file not found: #{sound_file_path}"
    end
 end
+ 
+# Main function
+def main
+   # Specify the path to the CSV file
+   csv_file_path = "../Magnet URLs/Magnet_URLs.csv"
 
-# Write the updated data back to the CSV file
-CSV.open(csv_file_path, "w", headers: headers, write_headers: true) do |csv|
-  csv_data.each { |row| csv << row }
+   # Update the "Total Size GB" column in the CSV file
+   update_total_size(csv_file_path)
+
+   # Sound file path
+   sound_file_path = "../.assets/Sounds/NotificationSound.wav"
+
+   # Play sound at the end
+   play_sound(sound_file_path)
 end
 
-puts "CSV file updated successfully."
-
-# Sound file path
-sound_file_path = "../.assets/Sounds/NotificationSound.wav"
-
-# Play sound at the end
-if File.exist?(sound_file_path)
-   if RbConfig::CONFIG["host_os"] =~ /linux/
-      # Linux command to play sound
-      system("aplay #{sound_file_path}")
-   elsif RbConfig::CONFIG["host_os"] =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/
-      # Windows command to play sound
-      system("start #{sound_file_path}")
-   end
-else
-   puts "Sound file not found: #{sound_file_path}"
-end
+# Call the main function
+main
