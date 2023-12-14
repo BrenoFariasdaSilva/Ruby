@@ -160,8 +160,10 @@ end
 
 puts "Results saved to Magnet_URLs.csv"
 
-# Play sound at the end
+# Sound file path
 sound_file_path = "./.assets/Sounds/NotificationSound.wav"
+
+# Play sound at the end
 if File.exist?(sound_file_path)
    if RbConfig::CONFIG["host_os"] =~ /linux/
       # Linux command to play sound

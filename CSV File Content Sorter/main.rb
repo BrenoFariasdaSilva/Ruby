@@ -38,8 +38,10 @@ end
 
 puts "CSV File Content Sorted Alphabetically by the #{SORTING_COLUMN} Column"
 
-# Play sound at the end
+# Sound file path
 sound_file_path = "./.assets/Sounds/NotificationSound.wav"
+
+# Play sound at the end
 if File.exist?(sound_file_path)
    if RbConfig::CONFIG["host_os"] =~ /linux/
       # Linux command to play sound
@@ -48,6 +50,6 @@ if File.exist?(sound_file_path)
       # Windows command to play sound
       system("start #{sound_file_path}")
    end
-   else
+else
    puts "Sound file not found: #{sound_file_path}"
 end
