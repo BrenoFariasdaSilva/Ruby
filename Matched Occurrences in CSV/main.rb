@@ -65,7 +65,7 @@ def main
    occurrences = get_occurrences(input_csv_filepath, search_column, searched_occurrence, values_column)
 
    # Save the found occurrences to a text file
-   output_file_path = "../Magnet URLs/#{search_column}:#{searched_occurrence}.txt"
+   output_file_path = "../Magnet URLs/#{search_column}-#{searched_occurrence}.txt"
    File.open(output_file_path, "w") do |file|
       occurrences.each do |magnet_url|
          file.puts magnet_url
