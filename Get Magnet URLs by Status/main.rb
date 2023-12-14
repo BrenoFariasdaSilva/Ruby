@@ -47,7 +47,7 @@ csv_file_path = "../Magnet URLs/Magnet_URLs.csv"
 downloading_magnet_urls = get_magnet_urls(csv_file_path)
 
 # Save Magnet URLs to a text file
-output_file_path = "#{STATUS}-Magnet_URLs.txt"
+output_file_path = "../Magnet URLs/#{STATUS}-Magnet_URLs.txt"
 File.open(output_file_path, "w") do |file|
 downloading_magnet_urls.each do |magnet_url|
    file.puts magnet_url
