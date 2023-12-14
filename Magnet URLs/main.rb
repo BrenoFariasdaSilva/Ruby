@@ -161,7 +161,7 @@ end
 puts "Results saved to Magnet_URLs.csv"
 
 # Sound file path
-sound_file_path = "./.assets/Sounds/NotificationSound.wav"
+sound_file_path = "../.assets/Sounds/NotificationSound.wav"
 
 # Play sound at the end
 if File.exist?(sound_file_path)
