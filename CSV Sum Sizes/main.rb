@@ -23,21 +23,22 @@ end
 
 # This method updates the "Total Size GB" column in the CSV file
 def update_total_size(csv_file_path)
-   csv_data = CSV.read(csv_file_path, headers: true)
-   headers = csv_data.headers
-   cumulative_total_size = 0.0
+   csv_data = CSV.read(csv_file_path, headers: true) # Read the CSV file
+   headers = csv_data.headers # Get the headers of the CSV file
+   cumulative_total_size = 0.0 # Initialize the cumulative total size
 
-   csv_data.each do |row|
-      size_gb = row["Size GB"].to_f
-      row["Total Size GB"] = (cumulative_total_size += size_gb).round(2).to_s
+   csv_data.each do |row| # Iterate through each row of the CSV file
+      size_gb = row["Size GB"].to_f # Get the size in GB and convert it to float
+      row["Total Size GB"] = (cumulative_total_size += size_gb).round(2).to_s # Update the "Total Size GB" column
 
-      if row["Total Size GB"] != row["Total Size GB"].to_f.round(2).to_s
-         puts "Updating Total Size for '#{row["Name"]}'"
+      if row["Total Size GB"] != row["Total Size GB"].to_f.round(2).to_s # Check if the "Total Size GB" column is updated
+         puts "Updating Total Size for '#{row["Name"]}'" # Print the name of the torrent
       end
    end
 
+   # Write the updated CSV data to the CSV file
    CSV.open(csv_file_path, "w", headers: headers, write_headers: true) do |csv|
-      csv_data.each { |row| csv << row }
+      csv_data.each { |row| csv << row } # Iterate through each row of the CSV data
    end
 
    puts "CSV file updated successfully."
