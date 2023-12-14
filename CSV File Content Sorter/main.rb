@@ -30,14 +30,14 @@ def sort_csv_alphabetically(csv_file_path, sorting_column)
 
    # Write the sorted array back to the CSV file
    CSV.open(csv_file_path, "w", headers: csv_data.headers, write_headers: true) do |csv|
-      csv_array.each { |row| csv << row }
+      csv_array.each { |row| csv << row } # Write each row to the CSV file
    end
 
    puts "CSV File Content Sorted Alphabetically by the #{sorting_column} Column"
 end
  
- # This method plays a sound file based on the operating system
- def play_sound(sound_file_path)
+# This method plays a sound file based on the operating system
+def play_sound(sound_file_path)
    if File.exist?(sound_file_path)
       if RbConfig::CONFIG["host_os"] =~ /linux/
          # Linux command to play sound
