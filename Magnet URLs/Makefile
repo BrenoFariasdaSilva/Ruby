@@ -1,4 +1,4 @@
-all: depencencies run
+all: dependencies run
 
 run:
 	clear; ruby ../Text\ File\ Content\ Sorter/main.rb
@@ -10,5 +10,5 @@ simple:
 	clear; ruby ../Text\ File\ Content\ Sorter/main.rb
 	time ruby ./main.rb
 
-depencencies:
+dependencies:
 	sudo gem install nokogiri ruby-progressbar selenium-webdriver

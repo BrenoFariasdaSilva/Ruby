@@ -1,7 +1,7 @@
-all: depencencies run
+all: dependencies run
 
 run:
 	clear; time ruby ./main.rb
 
-depencencies:
+dependencies:
 	sudo gem install
