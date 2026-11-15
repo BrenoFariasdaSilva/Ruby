@@ -25,10 +25,30 @@ Feel free to contribute and send suggestions.
 </div>
 
 <div align="center">
-  
-![RepoBeats Statistics](https://repobeats.axiom.co/api/embed/a98bbb82b999fd5f43fdf85f66933058c80bdb61.svg "Repobeats analytics image")
+
+![GitHub Code Size in Bytes](https://img.shields.io/github/languages/code-size/BrenoFariasdaSilva/Ruby)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/BrenoFariasdaSilva/Ruby)
+![GitHub License](https://img.shields.io/github/license/BrenoFariasdaSilva/Ruby)
+![wakatime](https://wakatime.com/badge/github/BrenoFariasdaSilva/Ruby.svg)
+[![GitHub Commits](https://img.shields.io/github/commit-activity/t/BrenoFariasdaSilva/Ruby/main)](https://github.com/BrenoFariasdaSilva/Ruby/commits/main)
+[![GitHub Forks](https://img.shields.io/github/forks/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/network/members)
+![GitHub Language Count](https://img.shields.io/github/languages/count/BrenoFariasdaSilva/Ruby)
+[![GitHub Stars](https://img.shields.io/github/stars/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/stargazers)
+[![GitHub Contributors](https://img.shields.io/github/contributors/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/graphs/contributors)
+[![GitHub Created At](https://img.shields.io/github/created-at/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby)
+[![GitHub Repository Size](https://img.shields.io/github/repo-size/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby)
+[![Open Issues](https://img.shields.io/github/issues/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/issues)
+[![Closed Issues](https://img.shields.io/github/issues-closed/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/issues?q=is%3Aissue+is%3Aclosed)
+[![Open Pull Requests](https://img.shields.io/github/issues-pr/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/pulls)
+[![Closed Pull Requests](https://img.shields.io/github/issues-pr-closed/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/pulls?q=is%3Apr+is%3Aclosed)
+[![Monthly Commits](https://img.shields.io/github/commit-activity/m/BrenoFariasdaSilva/Ruby/main)](https://github.com/BrenoFariasdaSilva/Ruby/commits)
+[![Merged PRs](https://img.shields.io/github/issues-search/BrenoFariasdaSilva/Ruby?query=is%3Apr%20is%3Amerged&label=merged%20PRs&color=blue)](https://github.com/BrenoFariasdaSilva/Ruby/pulls?q=is%3Apr+is%3Amerged)
+![GitHub Primary Language](https://img.shields.io/badge/language-Ruby-3b82f6)
+
+![Repobeats Statistics](https://repobeats.axiom.co/api/embed/a98bbb82b999fd5f43fdf85f66933058c80bdb61.svg)
 
 </div>
+
 
 ## Table of Contents
 - [Ruby. ](#ruby-)
