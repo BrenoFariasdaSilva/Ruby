@@ -27,7 +27,6 @@ Feel free to contribute and send suggestions.
 [![GitHub Stars](https://img.shields.io/github/stars/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/stargazers)
 [![GitHub Contributors](https://img.shields.io/github/contributors/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/graphs/contributors)
 [![GitHub Created At](https://img.shields.io/github/created-at/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby)
-[![GitHub Repository Size](https://img.shields.io/github/repo-size/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby)
 [![Open Issues](https://img.shields.io/github/issues/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/issues)
 [![Closed Issues](https://img.shields.io/github/issues-closed/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/issues?q=is%3Aissue+is%3Aclosed)
 [![Open Pull Requests](https://img.shields.io/github/issues-pr/BrenoFariasdaSilva/Ruby)](https://github.com/BrenoFariasdaSilva/Ruby/pulls)
